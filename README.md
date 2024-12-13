@@ -1,17 +1,19 @@
+# **Vulnerable Full-Stack Application**
 
-# Vulnerable Full-Stack Application
-
-## Overview
+## **Overview**
 
 This is an intentionally vulnerable full-stack application built with React (frontend) and Node.js (backend). It is designed for educational purposes to demonstrate common web vulnerabilities and their exploitation.
 
-Project Structure
-```
+---
+
+## **Project Structure**
+
+```plaintext
 project/
 ├── backend/
 │   ├── index.js
 │   ├── package.json
-│   └── ...
+│   └── Dockerfile
 ├── public/
 │   └── index.html
 ├── src/
@@ -22,9 +24,12 @@ project/
 │   ├── styles.css
 │   └── ...
 ├── package.json
+├── Dockerfile
+├── docker-compose.yml
 ├── README.md
-└── docker-compose.yml
 ```
+
+
 Features
 
 Frontend Vulnerabilities
