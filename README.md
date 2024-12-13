@@ -74,26 +74,25 @@ project/
 	- The /debug endpoint leaks environment variables and database credentials.
 	- Exploit: Access sensitive server configuration data.
 
-### Setup Instructions
+## Setup Instructions
 
-#### 1. Prerequisites
+### 1. Prerequisites
 - Node.js (v14 or later)
 - NPM
 - MySQL (for backend database)
 
-#### 2. Installation
-
-### Backend
+### 2. Installation
+#### Backend
 1. Navigate to the backend/ directory: `cd backend`
 2. Install dependencies: `npm install`
 3. Start the server: `node index.js`
 
-### Frontend
+#### Frontend
 1. Navigate to the project root (./) directory: `cd project`
 2. Install dependencies: `npm install`
 3. Start the React app: `npm start`
 
-#### 3. Database Setup
+### 3. Database Setup
 1. Create a MySQL database named testdb.
 2. Create a users table:
 ```sql
