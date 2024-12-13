@@ -35,52 +35,52 @@ Features
 Frontend Vulnerabilities
 
 	1. Cross-Site Scripting (XSS):
-		- User-provided input is rendered without sanitization.
-		- Exploit: Inject a malicious script in the comment field.
+	  - User-provided input is rendered without sanitization.
+	  - Exploit: Inject a malicious script in the comment field.
 	2. Insecure Local Storage:
-		- Login credentials are stored in localStorage when “Remember Me” is enabled.
-		- Exploit: Access stored credentials using browser developer tools.
+	  - Login credentials are stored in localStorage when “Remember Me” is enabled.
+	  - Exploit: Access stored credentials using browser developer tools.
 	3. Sensitive Information in the DOM:
-		- An API key is exposed in the DOM.
-		- Exploit: Inspect the DOM to retrieve the key.
+	  - An API key is exposed in the DOM.
+	  - Exploit: Inspect the DOM to retrieve the key.
 	4. Improper Error Handling:
-		- Backend error messages are leaked to the frontend.
-		- Exploit: Analyze error messages for backend implementation details.
+	  - Backend error messages are leaked to the frontend.
+	  - Exploit: Analyze error messages for backend implementation details.
 	5. Clickjacking:
-		- The app lacks X-Frame-Options, allowing embedding in an iframe.
-		- Exploit: Embed the app in a malicious website to trick users into interacting with it.
+	  - The app lacks X-Frame-Options, allowing embedding in an iframe.
+	  - Exploit: Embed the app in a malicious website to trick users into interacting with it.
 	6. Excessive Client-Side Trust:
-		- Form validations and restrictions are implemented only on the client side.
-		- Exploit: Use browser dev tools to bypass these checks.
+	  - Form validations and restrictions are implemented only on the client side.
+	  - Exploit: Use browser dev tools to bypass these checks.
 
 Backend Vulnerabilities
 
 	1. SQL Injection:
-		- User inputs are concatenated directly into SQL queries.
-		- Exploit: Inject SQL commands into login fields.
+	  - User inputs are concatenated directly into SQL queries.
+	  - Exploit: Inject SQL commands into login fields.
 	2. Hardcoded Credentials:
-		- Database credentials are hardcoded in the backend.
-		- Exploit: Access the source code to retrieve sensitive credentials.
+	  - Database credentials are hardcoded in the backend.
+	  - Exploit: Access the source code to retrieve sensitive credentials.
 	3. Weak Password Hashing:
-		- MD5 is used for password hashing.
-		- Exploit: Precomputed MD5 hashes (rainbow tables) can easily crack passwords.
+	  - MD5 is used for password hashing.
+	  - Exploit: Precomputed MD5 hashes (rainbow tables) can easily crack passwords.
 	4. Command Injection:
-		- User input is directly passed to the command line.
-		- Exploit: Execute arbitrary shell commands via the /exec endpoint.
+	  - User input is directly passed to the command line.
+	  - Exploit: Execute arbitrary shell commands via the /exec endpoint.
 	5. File Upload Without Validation:
-		- Files are saved on the server without validation.
-		- Exploit: Upload malicious files that could execute on the server.
+	  - Files are saved on the server without validation.
+	  - Exploit: Upload malicious files that could execute on the server.
 	6. Sensitive Information Exposure:
-		- The /debug endpoint leaks environment variables and database credentials.
-		- Exploit: Access sensitive server configuration data.
+	  - The /debug endpoint leaks environment variables and database credentials.
+	  - Exploit: Access sensitive server configuration data.
 
 Setup Instructions
 
 1. Prerequisites
 
-		- Node.js (v14 or later)
-		- NPM
-		- MySQL (for backend database)
+	  - Node.js (v14 or later)
+	  - NPM
+	  - MySQL (for backend database)
 
 2. Installation
 
@@ -136,8 +136,8 @@ INSERT INTO users (username, password) VALUES ('admin', MD5('password'));
 
 Usage
 
-		- Access the app in your browser at http://localhost:3000.
-		- Use features such as login, commenting, and file upload to explore vulnerabilities.
+	  - Access the app in your browser at http://localhost:3000.
+	  - Use features such as login, commenting, and file upload to explore vulnerabilities.
 
 Demonstrating Vulnerabilities
 
@@ -151,7 +151,7 @@ Frontend
 
 Backend
 
-	1. SQL Injection: Inject ' OR 1=1 	- into the username field during login.
+	1. SQL Injection: Inject ' OR 1=1   - into the username field during login.
 	2. Command Injection: Use the /exec endpoint with a query like cmd=ls.
 	3. Sensitive Data Exposure: Access the /debug endpoint to view leaked environment variables.
 
