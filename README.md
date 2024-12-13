@@ -1,70 +1,155 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Vulnerable Full-Stack Application
 
-## Available Scripts
+## Overview
 
-In the project directory, you can run:
+This is an intentionally vulnerable full-stack application built with React (frontend) and Node.js (backend). It is designed for educational purposes to demonstrate common web vulnerabilities and their exploitation.
 
-### `npm start`
+Project Structure
+```
+project/
+├── backend/
+│   ├── index.js
+│   ├── package.json
+│   └── ...
+├── public/
+│   └── index.html
+├── src/
+│   ├── components/
+│   ├── App.js
+│   ├── index.js
+│   ├── VulnerableService.js
+│   ├── styles.css
+│   └── ...
+├── package.json
+├── README.md
+└── docker-compose.yml
+```
+Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Frontend Vulnerabilities
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+	1.	Cross-Site Scripting (XSS):
+	•	User-provided input is rendered without sanitization.
+	•	Exploit: Inject a malicious script in the comment field.
+	2.	Insecure Local Storage:
+	•	Login credentials are stored in localStorage when “Remember Me” is enabled.
+	•	Exploit: Access stored credentials using browser developer tools.
+	3.	Sensitive Information in the DOM:
+	•	An API key is exposed in the DOM.
+	•	Exploit: Inspect the DOM to retrieve the key.
+	4.	Improper Error Handling:
+	•	Backend error messages are leaked to the frontend.
+	•	Exploit: Analyze error messages for backend implementation details.
+	5.	Clickjacking:
+	•	The app lacks X-Frame-Options, allowing embedding in an iframe.
+	•	Exploit: Embed the app in a malicious website to trick users into interacting with it.
+	6.	Excessive Client-Side Trust:
+	•	Form validations and restrictions are implemented only on the client side.
+	•	Exploit: Use browser dev tools to bypass these checks.
 
-### `npm test`
+Backend Vulnerabilities
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+	1.	SQL Injection:
+	•	User inputs are concatenated directly into SQL queries.
+	•	Exploit: Inject SQL commands into login fields.
+	2.	Hardcoded Credentials:
+	•	Database credentials are hardcoded in the backend.
+	•	Exploit: Access the source code to retrieve sensitive credentials.
+	3.	Weak Password Hashing:
+	•	MD5 is used for password hashing.
+	•	Exploit: Precomputed MD5 hashes (rainbow tables) can easily crack passwords.
+	4.	Command Injection:
+	•	User input is directly passed to the command line.
+	•	Exploit: Execute arbitrary shell commands via the /exec endpoint.
+	5.	File Upload Without Validation:
+	•	Files are saved on the server without validation.
+	•	Exploit: Upload malicious files that could execute on the server.
+	6.	Sensitive Information Exposure:
+	•	The /debug endpoint leaks environment variables and database credentials.
+	•	Exploit: Access sensitive server configuration data.
 
-### `npm run build`
+Setup Instructions
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Prerequisites
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+	•	Node.js (v14 or later)
+	•	NPM
+	•	MySQL (for backend database)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Installation
 
-### `npm run eject`
+Backend
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+	1.	Navigate to the backend/ directory:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+cd backend
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+	2.	Install dependencies:
 
-## Learn More
+npm install
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+	3.	Start the server:
 
-### Code Splitting
+node index.js
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Frontend
 
-### Making a Progressive Web App
+	1.	Navigate to the project root (./) directory:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+cd project
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+	2.	Install dependencies:
 
-### Deployment
+npm install
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
+	3.	Start the React app:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+npm start
+
+3. Database Setup
+
+	1.	Create a MySQL database named testdb.
+	2.	Create a users table:
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
+
+
+	3.	Optionally, insert test data:
+
+INSERT INTO users (username, password) VALUES ('admin', MD5('password'));
+
+Usage
+
+	•	Access the app in your browser at http://localhost:3000.
+	•	Use features such as login, commenting, and file upload to explore vulnerabilities.
+
+Demonstrating Vulnerabilities
+
+Frontend
+
+	1.	XSS: Post a comment containing <script>alert('XSS')</script> and observe the alert.
+	2.	Local Storage: Check the browser’s developer tools under the “Application” tab to see stored credentials.
+	3.	Sensitive Data: Inspect the DOM to view the exposed API key.
+	4.	Clickjacking: Embed the app in an iframe and create a fake website.
+	5.	Error Handling: Trigger a backend error and observe the raw error messages.
+
+Backend
+
+	1.	SQL Injection: Inject ' OR 1=1 -- into the username field during login.
+	2.	Command Injection: Use the /exec endpoint with a query like cmd=ls.
+	3.	Sensitive Data Exposure: Access the /debug endpoint to view leaked environment variables.
+
+Disclaimer
+
+This application is intended for educational purposes only. It demonstrates how vulnerabilities can be introduced and exploited in web applications. DO NOT deploy this application in a production environment or use it for malicious purposes.
